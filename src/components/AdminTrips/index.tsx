@@ -6,9 +6,7 @@ import CreateTripForm from "./CreateTripForm";
 const Trips = () => {
   return (
     <TripFormProvider>
-      <div>
-        <CreateTripForm />
-      </div>
+      <CreateTripForm />
     </TripFormProvider>
   );
 };

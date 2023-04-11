@@ -1,27 +1,23 @@
+import useAuthUser from "../../hooks/useAuthUser";
 import { convertTimestampToDate } from "../../utils/convertTimestampToDate";
 import { Trip } from "../../utils/firebase/hooks/types";
 import { useAuth } from "../../utils/firebase/hooks/useAuth";
-import { useTripsByUser } from "../../utils/firebase/hooks/useFetchTripsByUser";
+import { useTrips } from "../../utils/firebase/hooks/useTrips";
 import CustomSpinner from "../Spinner";
 
 const UserTrips = () => {
   const user = useAuth();
 
-  const { trips, isLoading, error } = useTripsByUser(user?.uid);
+  const { trips, isLoading, isAdmin } = useTrips(user?.uid);
 
   if (isLoading) {
     return <CustomSpinner />;
   }
-  console.log(trips);
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   return (
-    <div className="container">
-      <h1 className="my-4">My Trips</h1>
-      <ul className="list-group">
+    <div className="w-100 px-4">
+      <h1 className="my-4">{!isAdmin ? "My Trips" : "All Trips"}</h1>
+      <ul className="list-group flex-row flex-wrap">
         {trips.map((trip: Trip) => (
           <li className="list-group-item" key={trip.id}>
             <h5 className="mb-1">Car Number: {trip.carNumber}</h5>

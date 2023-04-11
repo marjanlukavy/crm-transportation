@@ -3,7 +3,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { createTrip } from "../../utils/firebase/services/createTrip";
 import { useTripForm } from "../../utils/providers/TripFormContext";
 import ToastMessage from "../SignIn/ToastMessage";
-import UserSelect from "./UserSelect";
+import TripCreation from "./TripCreation";
 
 function CreateTripForm() {
   const [showToast, setShowToast] = useState(false);
@@ -32,8 +32,8 @@ function CreateTripForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <UserSelect />
+    <form onSubmit={handleSubmit} className="mx-auto">
+      <TripCreation />
       <button type="submit" className="btn btn-primary">
         Create Trip
       </button>

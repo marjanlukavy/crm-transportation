@@ -1,0 +1,27 @@
+.form-group {
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.form-control {
+  width: 100%;
+}
+
+.date-picker-container {
+  display: flex;
+  align-items: center;
+}
+
+.date-picker-container .form-control {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 0 !important;
+}
+
+.form-row .form-group {
+  width: 48%;
+}

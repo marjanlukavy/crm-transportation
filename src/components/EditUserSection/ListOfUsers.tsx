@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import { Table, Form, Button } from "react-bootstrap";
+import { UserData } from "../../hooks/types";
 import updateUserRoles from "../../utils/firebase/services/updateUserRole";
 import { ListOfUsersProps, User } from "./types";
 
@@ -30,12 +31,12 @@ const ListOfUsers = ({ users, setShowToast }: ListOfUsersProps) => {
         <tr>
           <th>#</th>
           <th>First Name</th>
-          <th>Last Name</th>
+          <th>Email</th>
           <th>Role</th>
         </tr>
       </thead>
       <tbody>
-        {users.map((user) => (
+        {users.map((user: User) => (
           <tr
             key={user.id}
             style={{
@@ -47,14 +48,13 @@ const ListOfUsers = ({ users, setShowToast }: ListOfUsersProps) => {
             <td>
               <img
                 src={user.photoURL}
-                alt={user.name}
                 width="30"
                 height="30"
                 style={{ borderRadius: "50%" }}
               />
             </td>
-            <td>{user.name}</td>
-            <td>{user.lastName}</td>
+            <td>{user.displayName}</td>
+            <td>{user.email}</td>
             <td>
               <Form.Select
                 value={user.role}

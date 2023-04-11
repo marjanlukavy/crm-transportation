@@ -2,7 +2,7 @@ import { getDocs, query, collection, where } from "firebase/firestore";
 import { firestore } from "../config";
 import { Trip } from "../hooks/types";
 
-export const getTripsByUser = async (userId: string): Promise<Trip[]> => {
+export const getTripsByUser = async (userId?: string): Promise<Trip[]> => {
   if (!userId) {
     throw new Error("User ID is missing");
   }

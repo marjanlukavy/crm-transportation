@@ -1,12 +1,11 @@
-import React from "react";
-import styles from "./MainSection.module.css";
-import { Col, Container, Row, Button, Card } from "react-bootstrap";
-import useAuthentication from "../../hooks/useAuthentication";
-import { useAuth } from "../../utils/firebase/hooks/useAuth";
+import { Col, Row, Card } from "react-bootstrap";
 import useAuthUser from "../../hooks/useAuthUser";
+import { useTrips } from "../../utils/firebase/hooks/useTrips";
 
 const UserProfile = () => {
   const currentUser = useAuthUser();
+  const { trips } = useTrips(currentUser?.id);
+  const tripsLength = trips.length;
 
   return currentUser ? (
     <Row className="">
@@ -25,25 +24,19 @@ const UserProfile = () => {
                   alt="Generic placeholder image"
                 />
               </div>
-              <div className="flex-grow-1 ms-3 d-flex flex-column align-items-center">
+              <div className="flex-grow-1 ms-3 d-flex flex-column ">
                 <Card.Title>{currentUser.displayName}</Card.Title>
                 <Card.Text>{currentUser.email}</Card.Text>
 
-                <div
-                  className="d-flex  rounded-3 p-2"
-                  style={{ backgroundColor: "#efefef" }}
-                >
+                <div className="d-flex flex-column text-left rounded-3 p-2">
                   <div>
-                    <p className="small text-muted mb-1">Articles</p>
-                    <p className="mb-0">41</p>
+                    <p className="small text-muted mb-1">
+                      Connected Trips - {tripsLength}
+                    </p>
                   </div>
-                  <div className="px-3">
-                    <p className="small text-muted mb-1">Followers</p>
-                    <p className="mb-0">976</p>
-                  </div>
+
                   <div>
-                    <p className="small text-muted mb-1">Rating</p>
-                    <p className="mb-0">8.5</p>
+                    <p className="small text-muted mb-1">Rating - 8.5</p>
                   </div>
                 </div>
                 <div className="w-100">
