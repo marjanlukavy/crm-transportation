@@ -1,29 +1,19 @@
 import React from "react";
-import { Col, Container, Alert } from "react-bootstrap";
-import { BiError } from "react-icons/bi";
+import { Col } from "react-bootstrap";
+import { UserData } from "../../hooks/types";
+import useAuthentication from "../../hooks/useAuthentication";
+import useAuthUser from "../../hooks/useAuthUser";
 import styles from "./Sidebar.module.css";
+import SidebarAction from "./SidebarActionButton";
+import SidebarNav from "./SidebarNav";
 
 const SideBar = () => {
+  const currentUser: UserData | null = useAuthUser();
+  const { handleLogout } = useAuthentication();
   return (
-    <Col
-      xs={12}
-      md={3}
-      className={`${styles.sidebar} d-flex align-items-center justify-content-center p-0 m-0`}
-    >
-      <Container className="my-5">
-        <Alert
-          variant="warning"
-          className="d-flex justify-content-center align-items-center"
-        >
-          <div className="mr-3">
-            <BiError size="3em" />
-          </div>
-          <div>
-            <h3>Warning</h3>
-            <p>Please sign in or sign up to continue</p>
-          </div>
-        </Alert>
-      </Container>
+    <Col xs={12} md={3} className={`${styles.sidebar} d-flex flex-column`}>
+      <SidebarNav currentUser={currentUser} isAdmin={currentUser?.isAdmin} />
+      <SidebarAction handleLogout={handleLogout} />
     </Col>
   );
 };

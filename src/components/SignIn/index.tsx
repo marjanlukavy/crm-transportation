@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import { useRef } from "react";
 import useAuthentication from "../../hooks/useAuthentication";
 
-import { useAuth } from "../../utils/firebase/useAuth";
+import { useAuth } from "../../utils/firebase/hooks/useAuth";
 import PhoneNumber from "./PhoneNumber";
 import AuthenticationButtons from "./AuthenticationButtons";
 import ToastMessage from "./ToastMessage";
@@ -56,8 +56,8 @@ const SignIn = () => {
         <AuthenticationButtons
           isLoading={isLoading}
           currentUser={currentUser}
-          onSubmitLogin={onSubmitLogin}
-          handleLogout={handleLogout}
+          handleSignup={onSubmitLogin}
+          handleLogin={onSubmitLogin}
         />
       </Form>
       <ToastMessage

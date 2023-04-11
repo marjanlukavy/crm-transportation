@@ -9,7 +9,6 @@ const AuthenticationButtons = ({
   currentUser,
   handleSignup,
   handleLogin,
-  handleLogout,
 }: any) => {
   //Google
   const handleGoogleSignIn = async () => {
@@ -37,14 +36,7 @@ const AuthenticationButtons = ({
       >
         {isLoading ? "Loading..." : "Sign Up"}
       </Button>
-      <Button
-        variant="primary"
-        type="submit"
-        disabled={isLoading || !currentUser}
-        onClick={handleLogout}
-      >
-        Log out
-      </Button>
+
       <Button
         variant="primary"
         type="submit"

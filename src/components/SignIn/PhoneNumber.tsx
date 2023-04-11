@@ -1,8 +1,6 @@
 import {
-  RecaptchaVerifier,
   signInWithPhoneNumber,
-  getAuth,
-  PhoneAuthProvider,
+  RecaptchaVerifier,
   ConfirmationResult,
 } from "firebase/auth";
 import { useEffect, useRef, useState } from "react";
@@ -11,64 +9,61 @@ import { Form, Button } from "react-bootstrap";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const PhoneNumber = () => {
-  const [confirmationResult, setConfirmationResult] =
-    useState<ConfirmationResult | null>(null);
+  const [confirmation, setConfirmation] = useState<ConfirmationResult | null>(
+    null
+  );
   const [verificationCode, setVerificationCode] = useState("");
-  const phoneNumberRef = useRef<HTMLInputElement>(null);
-  const recaptchaVerifier = useRef<any>(null);
+  const phoneNumberRef = useRef<HTMLInputElement | null>(null);
+  const recaptchaRef = useRef<RecaptchaVerifier | null>(null);
 
   useEffect(() => {
     const recaptchaContainer = document.getElementById("recaptcha-container");
     if (recaptchaContainer) {
-      recaptchaVerifier.current = new RecaptchaVerifier(
+      recaptchaRef.current = new RecaptchaVerifier(
         "recaptcha-container",
         {
           size: "normal",
-          callback: (response: any) => {
-            // reCAPTCHA solved, you can enable the sign-in button, for example
-          },
+          callback: () => {},
         },
         auth
       );
-      recaptchaVerifier.current.render().catch((error: any) => {
+      recaptchaRef.current.render().catch((error) => {
         console.log("RecaptchaVerifier render failed", error);
       });
     }
   }, []);
 
   const handlePhoneNumberSignIn = async () => {
-    const phoneNumberValue = phoneNumberRef.current?.value;
-    if (phoneNumberValue) {
-      try {
-        const parsedPhoneNumber = parsePhoneNumberFromString(
-          phoneNumberValue,
-          "UA"
-        );
-        const formattedPhoneNumber = parsedPhoneNumber?.format("E.164");
+    const phoneNumber = phoneNumberRef.current?.value;
+    if (!phoneNumber) return;
 
-        if (formattedPhoneNumber && recaptchaVerifier.current) {
-          const confirmation = await signInWithPhoneNumber(
-            auth,
-            formattedPhoneNumber,
-            recaptchaVerifier.current
-          );
-          setConfirmationResult(confirmation);
-        } else {
-          console.log("Invalid phone number format");
-        }
-      } catch (error) {
-        console.log("Phone number sign-in failed", error);
-      }
+    const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, "UA");
+    if (!parsedPhoneNumber) {
+      console.log("Invalid phone number format");
+      return;
+    }
+    const formattedPhoneNumber = parsedPhoneNumber.format("E.164");
+    if (!formattedPhoneNumber || !recaptchaRef.current) return;
+
+    try {
+      const result = await signInWithPhoneNumber(
+        auth,
+        formattedPhoneNumber,
+        recaptchaRef.current
+      );
+      setConfirmation(result);
+    } catch (error) {
+      console.log("Phone number sign-in failed", error);
     }
   };
 
   const handleVerificationCodeSubmit = async () => {
-    if (confirmationResult && verificationCode) {
-      try {
-        await confirmationResult.confirm(verificationCode);
-      } catch (error) {
-        console.log("Verification code submit failed", error);
-      }
+    if (!confirmation || !verificationCode) return;
+
+    try {
+      await confirmation.confirm(verificationCode);
+    } catch (error) {
+      console.log("Verification code submit failed", error);
     }
   };
 
@@ -82,7 +77,8 @@ const PhoneNumber = () => {
           ref={phoneNumberRef}
         />
       </Form.Group>
-      {confirmationResult && (
+
+      {confirmation && (
         <Form.Group controlId="formBasicVerificationCode">
           <Form.Label>Verification Code</Form.Label>
           <Form.Control
@@ -97,7 +93,7 @@ const PhoneNumber = () => {
       <Button variant="primary" type="button" onClick={handlePhoneNumberSignIn}>
         Sign In with Phone Number
       </Button>
-      {confirmationResult && (
+      {confirmation && (
         <Button
           variant="primary"
           type="button"

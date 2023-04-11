@@ -15,10 +15,10 @@ const WarningMessage = () => {
       }}
     >
       <div className="d-flex flex-column">
-        <Warning
+        {/* <Warning
           title="Warning"
           message="Please sign in or sign up to continue"
-        />
+        /> */}
         <SignIn />
       </div>
     </div>

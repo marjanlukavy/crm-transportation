@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
@@ -18,6 +18,10 @@ export const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, googleProvider);
     const user = result.user;
 
+    const adminsSnapshot = await getDocs(collection(firestore, "admins"));
+    const adminEmails = adminsSnapshot.docs.map((doc) => doc.data().email);
+    const isAdmin = adminEmails.includes(user.email);
+
     // Store the user in Firestore
     const userDocRef = doc(collection(firestore, "users"), user.uid);
 
@@ -27,6 +31,8 @@ export const signInWithGoogle = async () => {
       photoURL: user.photoURL,
       provider: "Google",
       createdAt: new Date(),
+      isAdmin,
+      role: isAdmin ? "admin" : "member",
     });
 
     return user;
@@ -49,6 +55,7 @@ export const signInWithFacebook = async () => {
       name: user.displayName,
       photoURL: user.photoURL,
       createdAt: new Date(),
+      role: "member",
     });
   } catch (error) {
     console.log(error);
@@ -69,6 +76,7 @@ export const signup = async (email: string, password: string) => {
       email: userCredential.user.email,
       uid: userCredential.user.uid,
       createdAt: new Date(),
+      role: "member",
     });
 
     return userCredential;

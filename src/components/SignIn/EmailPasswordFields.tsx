@@ -1,6 +1,11 @@
 import { Form } from "react-bootstrap";
+import { EmailPasswordFieldsProps } from "./types";
 
-const EmailPasswordFields = ({ emailRef, passwordRef, currentUser }: any) => (
+const EmailPasswordFields = ({
+  emailRef,
+  passwordRef,
+  currentUser,
+}: EmailPasswordFieldsProps) => (
   <>
     <Form.Group controlId="formBasicEmail">
       <div>{currentUser?.email}</div>

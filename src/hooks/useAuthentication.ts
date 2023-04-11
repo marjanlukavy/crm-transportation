@@ -1,31 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
-  FacebookAuthProvider,
   User,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, firestore } from "../utils/firebase/config";
 
-type AuthenticationHook = {
-  isLoading: boolean;
-  toastMessage: string;
-  showToast: boolean;
-  setToastMessage: (message: string) => void;
-  setShowToast: (show: boolean) => void;
-  handleSignup: (email: string, password: string) => Promise<void>;
-  handleLogin: (email: string, password: string) => Promise<void>;
-  handleLogout: () => Promise<void>;
-};
-
-const googleProvider = new GoogleAuthProvider();
-const facebookProvider = new FacebookAuthProvider();
-
-const useAuthentication = (): AuthenticationHook => {
+const useAuthentication = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [showToast, setShowToast] = useState(false);
@@ -38,7 +21,7 @@ const useAuthentication = (): AuthenticationHook => {
         email,
         password
       );
-      await addUserToFirestore(userCredential.user);
+      await addUserToFirestore(userCredential.user, "member");
       setToastMessage("Sign up successful!");
       setShowToast(true);
     } catch (error) {
@@ -77,12 +60,13 @@ const useAuthentication = (): AuthenticationHook => {
     setIsLoading(false);
   };
 
-  const addUserToFirestore = async (user: User) => {
+  const addUserToFirestore = async (user: User, role: string) => {
     const userRef = doc(firestore, "users", user.uid);
     const userObj = {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
+      role,
     };
     try {
       await setDoc(userRef, userObj);
