@@ -9,7 +9,6 @@ export const useTrips = (userId?: string) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const loggedUser = useAuthUser();
-  console.log(!loggedUser?.isAdmin);
 
   useEffect(() => {
     const fetchTrips = async () => {
@@ -18,7 +17,6 @@ export const useTrips = (userId?: string) => {
         const trips = !loggedUser?.isAdmin
           ? await getTripsByUser(userId)
           : await getAllTrips();
-        console.log(trips);
 
         setTrips(trips);
         setIsLoading(false);

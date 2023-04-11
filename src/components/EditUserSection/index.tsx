@@ -8,7 +8,7 @@ import ListOfUsers from "./ListOfUsers";
 const EditUsersSection = () => {
   const users = useFetchUsers();
   const [showToast, setShowToast] = useState(false);
-  console.log(users);
+
   return (
     <Col
       xs={12}
