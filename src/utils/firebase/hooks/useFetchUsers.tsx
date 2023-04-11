@@ -3,10 +3,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../config";
 import useAuthUser from "../../../hooks/useAuthUser";
 import { UserData } from "../../../hooks/types";
+import { User } from "../../../components/EditUserSection/types";
 
 const useFetchUsers = () => {
   const currentUser = useAuthUser();
-  const [users, setUsers] = useState<UserData[]>([]);
+  const [users, setUsers] = useState<UserData[] | User[]>([]);
 
   useEffect(() => {
     const fetchUsers = async () => {

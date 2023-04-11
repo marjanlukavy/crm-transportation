@@ -11,7 +11,7 @@ const SideBar = () => {
   const currentUser: UserData | null = useAuthUser();
   const { handleLogout } = useAuthentication();
   return (
-    <Col xs={12} md={3} className={`${styles.sidebar} d-flex flex-column`}>
+    <Col xs={12} md={2} className={`${styles.sidebar} d-flex flex-column`}>
       <SidebarNav currentUser={currentUser} isAdmin={currentUser?.isAdmin} />
       <SidebarAction handleLogout={handleLogout} />
     </Col>

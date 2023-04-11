@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { UserData } from "../../hooks/types";
-import useAuthUser from "../../hooks/useAuthUser";
 
 interface SidebarNavProps {
   currentUser: UserData | null;
   isAdmin?: boolean;
 }
 
-const SidebarNav: React.FC<SidebarNavProps> = ({ currentUser, isAdmin }) => {
+const SidebarNav: React.FC<SidebarNavProps> = ({ currentUser }) => {
   return (
     <nav>
       <ul className="list-unstyled">
@@ -26,7 +25,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ currentUser, isAdmin }) => {
                 to="/edit-trips"
                 className="text-decoration-none text-secondary"
               >
-                Create trips
+                Edit trips
               </Link>
             </li>
           </>
@@ -38,7 +37,7 @@ const SidebarNav: React.FC<SidebarNavProps> = ({ currentUser, isAdmin }) => {
         </li>
         <li className="mb-4">
           <Link to="/trips" className="text-decoration-none text-secondary">
-            UserTrips
+            My Trips
           </Link>
         </li>
       </ul>

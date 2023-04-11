@@ -23,7 +23,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Container fluid className="p-0">
-        <Row noGutters className="m-0">
+        <Row noGutters className="m-0 d-flex flex-nowrap">
           <SideBar />
           <Routes>
             <Route path="/" element={<MainSection />} />

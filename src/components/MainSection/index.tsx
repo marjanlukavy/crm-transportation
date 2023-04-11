@@ -3,8 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import Col from "react-bootstrap/esm/Col";
 import styles from "./MainSection.module.css";
 import UserProfile from "./UserProfile";
-import EditUsersSection from "../EditUserSection";
-import Trips from "../AdminTrips";
 
 const MainSection = () => {
   return (

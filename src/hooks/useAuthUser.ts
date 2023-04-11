@@ -20,7 +20,10 @@ const useAuthUser = (): UserData | null => {
         const userDoc: DocumentSnapshot<DocumentData> = await getDoc(userRef);
 
         if (userDoc.exists()) {
-          setUserData(userDoc.data() as UserData);
+          setUserData({
+            ...userDoc.data(),
+            id: authUser.uid,
+          } as unknown as UserData);
         }
       }
     };
