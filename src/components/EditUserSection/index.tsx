@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Col } from "react-bootstrap";
 import withAdminAuth from "../../hocs/withAdminAuth";
+import ToastMessage from "../../shared/ToastMessage";
 import useFetchUsers from "../../utils/firebase/hooks/useFetchUsers";
-import ToastMessage from "../SignIn/ToastMessage";
 import ListOfUsers from "./ListOfUsers";
 
 const EditUsersSection = () => {

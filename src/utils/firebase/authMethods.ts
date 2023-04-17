@@ -32,7 +32,7 @@ export const signInWithGoogle = async () => {
       provider: "Google",
       createdAt: new Date(),
       isAdmin,
-      role: isAdmin ? "admin" : "member",
+      role: isAdmin ? "admin" : "Водій",
     });
 
     return user;
@@ -52,10 +52,10 @@ export const signInWithFacebook = async () => {
     await setDoc(userDocRef, {
       email: user.email,
       uid: user.uid,
-      name: user.displayName,
+      displayName: user.displayName,
       photoURL: user.photoURL,
       createdAt: new Date(),
-      role: "member",
+      role: "Водій",
     });
   } catch (error) {
     console.log(error);
@@ -65,6 +65,10 @@ export const signInWithFacebook = async () => {
 // Email and password
 export const signup = async (email: string, password: string) => {
   try {
+    const adminsSnapshot = await getDocs(collection(firestore, "admins"));
+    const adminEmails = adminsSnapshot.docs.map((doc) => doc.data().email);
+    const isAdmin = adminEmails.includes(email);
+
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -76,7 +80,7 @@ export const signup = async (email: string, password: string) => {
       email: userCredential.user.email,
       uid: userCredential.user.uid,
       createdAt: new Date(),
-      role: "member",
+      role: isAdmin ? "admin" : "Водій",
     });
 
     return userCredential;

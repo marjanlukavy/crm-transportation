@@ -4,11 +4,9 @@ import { EmailPasswordFieldsProps } from "./types";
 const EmailPasswordFields = ({
   emailRef,
   passwordRef,
-  currentUser,
 }: EmailPasswordFieldsProps) => (
-  <>
+  <div className="d-flex flex-column">
     <Form.Group controlId="formBasicEmail">
-      <div>{currentUser?.email}</div>
       <Form.Label>Email address</Form.Label>
       <Form.Control type="email" placeholder="Enter email" ref={emailRef} />
     </Form.Group>
@@ -16,7 +14,7 @@ const EmailPasswordFields = ({
       <Form.Label>Password</Form.Label>
       <Form.Control type="password" placeholder="Password" ref={passwordRef} />
     </Form.Group>
-  </>
+  </div>
 );
 
 export default EmailPasswordFields;

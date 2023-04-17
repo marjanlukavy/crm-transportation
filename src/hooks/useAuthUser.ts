@@ -12,22 +12,20 @@ import { UserData } from "./types";
 const useAuthUser = (): UserData | null => {
   const [userData, setUserData] = useState<UserData | null>(null);
   const authUser = useAuth();
+  const fetchUser = async () => {
+    if (authUser) {
+      const userRef = doc(firestore, "users", authUser.uid);
+      const userDoc: DocumentSnapshot<DocumentData> = await getDoc(userRef);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (authUser) {
-        const userRef = doc(firestore, "users", authUser.uid);
-        const userDoc: DocumentSnapshot<DocumentData> = await getDoc(userRef);
-
-        if (userDoc.exists()) {
-          setUserData({
-            ...userDoc.data(),
-            id: authUser.uid,
-          } as unknown as UserData);
-        }
+      if (userDoc.exists()) {
+        setUserData({
+          ...userDoc.data(),
+          id: authUser.uid,
+        } as unknown as UserData);
       }
-    };
-
+    }
+  };
+  useEffect(() => {
     fetchUser();
   }, [authUser]);
 

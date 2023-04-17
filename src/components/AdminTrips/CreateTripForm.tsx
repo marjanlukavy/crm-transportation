@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
+import ToastMessage from "../../shared/ToastMessage";
 import { createTrip } from "../../utils/firebase/services/createTrip";
 import { useTripForm } from "../../utils/providers/TripFormContext";
-import ToastMessage from "../SignIn/ToastMessage";
 import TripCreation from "./TripCreation";
 
 function CreateTripForm() {
