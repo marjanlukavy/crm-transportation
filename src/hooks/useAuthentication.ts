@@ -9,6 +9,7 @@ import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { auth, firestore } from "../utils/firebase/config";
 import { useNavigate } from "react-router-dom";
 import { useMessage } from "../utils/providers/MessageProvider";
+import { FirebaseError } from "firebase/app";
 
 const useAuthentication = () => {
   const navigate = useNavigate();

@@ -3,7 +3,11 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const UpdateEmailAndProfileModal = ({ onSubmit }: any) => {
+const UpdateEmailAndProfileModal = ({
+  onSubmit,
+}: {
+  onSubmit: (e: { preventDefault: () => void }, p: string) => void;
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [password, setPassword] = useState("");
 

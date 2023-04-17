@@ -7,7 +7,7 @@ export type User = {
   provider?: string;
   isAdmin?: boolean;
   role: string;
-  createdAt?: any;
+  createdAt?: string;
 };
 
 export interface ListOfUsersProps {

@@ -12,7 +12,7 @@ export type AuthenticationHook = {
 };
 
 export interface UserData {
-  uid: any;
+  uid: string;
   phone?: string;
   id?: string;
   displayName?: string;
