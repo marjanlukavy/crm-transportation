@@ -2,7 +2,17 @@ import { useState, useEffect } from "react";
 import { Toast } from "react-bootstrap";
 import { useMessage } from "../utils/providers/MessageProvider";
 
-const ToastMessage = ({ showToast, toastMessage, onClose }: any) => {
+interface ToastMessageProps {
+  showToast: boolean;
+  toastMessage: string;
+  onClose: () => void;
+}
+
+const ToastMessage = ({
+  showToast,
+  toastMessage,
+  onClose,
+}: ToastMessageProps) => {
   const { message } = useMessage();
   const [showMessage, setShowMessage] = useState(false);
 

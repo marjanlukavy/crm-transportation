@@ -11,7 +11,7 @@ function CreateTripForm() {
   const { carNumber, from, to, passengers, userId } = useTripForm();
   const handleCloseToast = () => setShowToast(false);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const trip = {
       carNumber,

@@ -1,3 +1,5 @@
+import { User } from "../EditUserSection/types";
+
 export interface EmailPasswordFieldsProps {
   emailRef: React.RefObject<HTMLInputElement>;
   passwordRef: React.RefObject<HTMLInputElement>;
@@ -5,7 +7,7 @@ export interface EmailPasswordFieldsProps {
 
 export interface AuthenticationButtonsProps {
   isLoading: boolean;
-  currentUser: any;
+  currentUser: User;
   handleSignup: () => void;
   handleLogin: () => void;
   handleShowPhoneNumber: () => void;
