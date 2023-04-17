@@ -3,9 +3,9 @@ import { Toast } from "react-bootstrap";
 import { useMessage } from "../utils/providers/MessageProvider";
 
 interface ToastMessageProps {
-  showToast: boolean;
-  toastMessage: string;
-  onClose: () => void;
+  showToast?: boolean;
+  toastMessage?: string;
+  onClose?: () => void;
 }
 
 const ToastMessage = ({

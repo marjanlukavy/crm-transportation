@@ -4,6 +4,7 @@ import { Trip } from "../../utils/firebase/hooks/types";
 import { useAuth } from "../../utils/firebase/hooks/useAuth";
 import { useTrips } from "../../utils/firebase/hooks/useTrips";
 import CustomSpinner from "../../shared/Spinner";
+import withAdminAuth from "../../hocs/withAdminAuth";
 
 const UserTrips = () => {
   const user = useAuth();
@@ -40,4 +41,4 @@ const UserTrips = () => {
   );
 };
 
-export default UserTrips;
+export default withAdminAuth(UserTrips);

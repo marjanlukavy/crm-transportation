@@ -1,4 +1,5 @@
 import { Container, Row, Col, Image } from "react-bootstrap";
+import withAdminAuth from "../../hocs/withAdminAuth";
 import useAuthUser from "../../hooks/useAuthUser";
 import CustomSpinner from "../../shared/Spinner";
 import EditProfile from "./EditProfile";
@@ -30,4 +31,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default withAdminAuth(UserProfile);
