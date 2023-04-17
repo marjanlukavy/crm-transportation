@@ -12,7 +12,7 @@ const withAdminAuth =
 
     useEffect(() => {
       if (user && !user.isAdmin) {
-        navigate("/");
+        navigate("/profile");
       }
     }, [user, navigate]);
 

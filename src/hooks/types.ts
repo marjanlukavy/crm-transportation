@@ -12,12 +12,33 @@ export type AuthenticationHook = {
 };
 
 export interface UserData {
+  uid: any;
+  phone?: string;
   id?: string;
-  displayName: string;
-  email: string;
-  photoURL: string;
-  provider: string;
+  displayName?: string;
+  email?: string;
+  photoURL?: string;
+  provider?: string;
   isAdmin: boolean;
-  role: string;
+  role?: string;
   createdAt: DocumentData;
+  age?: string;
+  description?: string;
 }
+
+export type UserProfileProps = Pick<UserData, "id">;
+
+export type UserInformationProps = Pick<
+  UserData,
+  | "id"
+  | "photoURL"
+  | "displayName"
+  | "email"
+  | "phone"
+  | "role"
+  | "age"
+  | "description"
+>;
+
+export type UpdatedUserData = Partial<UserInformationProps> &
+  Record<string, any>;
