@@ -45,14 +45,18 @@ const useAuthentication = () => {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      updateMessage("Log in successful!");
+      // updateMessage("Log in successful!");
 
       setShowToast(true);
-    } catch (error) {
+    } catch (error: any) {
       console.log("Log in failed", error);
+      if (error.code === "auth/wrong-password") {
+        updateMessage("Log in failed. Wrong Password.");
+      }
       updateMessage("Log in failed. Please try again.");
       setShowToast(true);
     }
+
     setIsLoading(false);
   };
 
@@ -61,7 +65,7 @@ const useAuthentication = () => {
     try {
       await signOut(auth);
       navigate("/login");
-      updateMessage("Log out successful!");
+
       setShowToast(true);
     } catch (error) {
       console.log("Log out failed", error);

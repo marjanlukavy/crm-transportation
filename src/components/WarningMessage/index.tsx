@@ -1,9 +1,16 @@
 import { Button } from "react-bootstrap";
 import Alert from "react-bootstrap/esm/Alert";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../utils/firebase/hooks/useAuth";
 
 const WarningMessage = ({ message }: { message?: string }) => {
   const navigate = useNavigate();
+  const user = useAuth();
+
+  if (user === null) {
+    navigate("/login");
+  }
+
   return (
     <div
       className="position-absolute d-flex justify-content-center align-items-center flex-column"
