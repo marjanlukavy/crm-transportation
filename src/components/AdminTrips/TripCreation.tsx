@@ -36,7 +36,7 @@ function TripCreation() {
         />
       </div>
       <div className="form-row">
-        <div className="form-group">
+        <div className="form-group w-100">
           <label htmlFor="from">From:</label>
           <div className="date-picker-container">
             <DatePicker
@@ -48,7 +48,7 @@ function TripCreation() {
             />
           </div>
         </div>
-        <div className="form-group">
+        <div className="form-group w-100">
           <label htmlFor="to">To:</label>
           <div className="date-picker-container">
             <DatePicker
@@ -84,7 +84,7 @@ function TripCreation() {
             <option value="">-- Select a user --</option>
             {users.map((option) => (
               <option key={option.id} value={option.id}>
-                {option.displayName}
+                {option.displayName ? option.displayName : "-"} | {option.email}
               </option>
             ))}
           </select>
